@@ -6,9 +6,8 @@ import org.mapstruct.Mapper;
 
 import java.util.List;
 
-
 @Mapper(componentModel = "spring")
-public interface MapperC {
+public interface MapperCategories {
 
     // MapperC INSTANCE = Mappers.getMapper(MapperC.class);
 

@@ -3,17 +3,17 @@ package com.reserva_libros.domain.service;
 import com.reserva_libros.domain.dto.CategoriesDto;
 import com.reserva_libros.domain.repository.CategoriesRepository;
 import com.reserva_libros.domain.useCase.CategoriesService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-@RequiredArgsConstructor
-@Service
 public class CategoriesServiceImpl implements CategoriesService {
 
     private final CategoriesRepository categoriesRepository;
+
+    public CategoriesServiceImpl(CategoriesRepository categoriesRepository) {
+        this.categoriesRepository = categoriesRepository;
+    }
 
     @Override
     public List<CategoriesDto> getAll() {
@@ -42,6 +42,11 @@ public class CategoriesServiceImpl implements CategoriesService {
     @Override
     public boolean delete(Integer idCategory) {
         /** validar si la categoria viene vacia, validar si hay una categoria */
-        return categoriesRepository.getCategoryById(idCategory).isPresent();
+        if (categoriesRepository.getCategoryById(idCategory).isEmpty()) {
+            return false;
+        }
+
+        categoriesRepository.delete(idCategory);
+        return true;
     }
 }

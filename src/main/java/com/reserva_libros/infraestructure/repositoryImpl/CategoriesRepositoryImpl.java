@@ -4,7 +4,7 @@ import com.reserva_libros.domain.dto.CategoriesDto;
 import com.reserva_libros.domain.repository.CategoriesRepository;
 import com.reserva_libros.infraestructure.crud.CategoriesCrudRepository;
 import com.reserva_libros.infraestructure.entity.CategoriesEntity;
-import com.reserva_libros.infraestructure.mapper.MapperC;
+import com.reserva_libros.infraestructure.mapper.MapperCategories;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -27,7 +27,7 @@ public class CategoriesRepositoryImpl implements CategoriesRepository {
     /**
      * Mapper de categoria
      */
-    private final MapperC mapper;
+    private final MapperCategories mapper;
 
     @Override
     public List<CategoriesDto> getAll() {

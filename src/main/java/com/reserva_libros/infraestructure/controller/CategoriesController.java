@@ -21,8 +21,27 @@ public class CategoriesController {
         return new ResponseEntity<>(categoriesService.getAll(), HttpStatus.OK);
     }
 
+    @GetMapping("/{name}")
+    public ResponseEntity<CategoriesDto> getCategoryByName(@PathVariable String name){
+        return ResponseEntity.of(categoriesService.getCategory(name));
+    }
+
     @PostMapping()
     public ResponseEntity<CategoriesDto> save(@RequestBody CategoriesDto categoriesDto) {
         return new ResponseEntity<>(categoriesService.save(categoriesDto), HttpStatus.CREATED);
+    }
+
+    @PutMapping()
+    public ResponseEntity<CategoriesDto> update(@RequestBody CategoriesDto categoriesDto) {
+        /** se usa of ya que retorna un Optional */
+        return ResponseEntity.of(categoriesService.update(categoriesDto));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Boolean> delete(@PathVariable Integer id) {
+        /** SI SE ENCUENTRA LA CATEGORIA A ELIMINAR LANZA UN OK
+         * Y
+         * SI NO ENCUENTRA CATEGORA LANZA NO_FOUND (NO CONTENIDO)*/
+        return new ResponseEntity<>(categoriesService.delete(id) ? HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
 }
