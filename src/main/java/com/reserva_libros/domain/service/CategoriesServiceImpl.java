@@ -30,10 +30,13 @@ public class CategoriesServiceImpl implements CategoriesService {
         return categoriesRepository.save(categoriesDto);
     }
 
+    /** Se usa Optional para no retornar un null,
+     * ya que la funcion del Optional es manejar los null
+     * */
     @Override
     public Optional<CategoriesDto> update(CategoriesDto categoriesDto) {
         /** validar si la categoria viene vacia, validar si hay una categoria */
-        if (categoriesRepository.getCategoryById(categoriesDto.getId()).isEmpty()) {
+        if (categoriesRepository.getCategoryById(categoriesDto.getId_categoria()).isEmpty()) {
             return Optional.empty();
         }
         return  Optional.of(categoriesRepository.save(categoriesDto));
@@ -45,8 +48,19 @@ public class CategoriesServiceImpl implements CategoriesService {
         if (categoriesRepository.getCategoryById(idCategory).isEmpty()) {
             return false;
         }
-
         categoriesRepository.delete(idCategory);
+        return true;
+    }
+
+    @Override
+    public boolean deleteByNameCategory(String name) {
+        Optional<CategoriesDto> categoriesDto = categoriesRepository.getCategoryByName(name);
+
+        if(categoriesDto.isEmpty()) {
+            return false;
+        }
+
+        categoriesRepository.delete(categoriesDto.get().getId_categoria());
         return true;
     }
 }

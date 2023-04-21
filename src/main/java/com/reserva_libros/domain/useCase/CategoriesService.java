@@ -32,11 +32,12 @@ public interface CategoriesService {
      */
     Optional<CategoriesDto> update(CategoriesDto categoriesDto);
 
-
     /**
      * Elimina una categoria dada su id
      * @param idCategory Id de la categoria a eliminar
      * @return true si se eliminó, false de lo contrario
      */
     boolean delete(Integer idCategory);
+
+    boolean deleteByNameCategory(String name);
 }

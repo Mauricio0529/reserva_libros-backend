@@ -1,16 +1,19 @@
 package com.reserva_libros.infraestructure.entity;
 
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * Entidad de usuario
  */
 
-//@Getter @Setter
-//@Entity
-//@Table(name = "usuarios")
+@Getter @Setter
+@Entity
+@Table(name = "usuarios")
 public class CustomerEntity {
 
-    /* @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
     @Column(name = "cedula")
     private Integer cardId;
 
@@ -30,5 +33,5 @@ public class CustomerEntity {
     private String email;
 
     @Column(name = "numero_celular")
-    private Integer numberCellPhone;*/
+    private Integer numberCellPhone;
 }

@@ -7,20 +7,27 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * Entidad de categorias
+ * Entidad de autor
  */
 
 @Entity
-@Table(name = "categorias")
+@Table(name = "autor")
 @Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CategoriesEntity {
+public class AuthorEntity {
 
+    /**
+     * id de autor
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id_categoria;
+    private Integer id;
 
-    @Column(name = "categoria")
-    private String nameCategory;
+    /**
+     * nombre de autor
+     */
+    @Column(name = "nombre")
+    private String name;
+
 }
