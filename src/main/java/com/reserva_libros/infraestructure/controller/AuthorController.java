@@ -37,12 +37,12 @@ public class AuthorController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Boolean> deleteAuthorById(@PathVariable Integer id) {
+    public ResponseEntity<Boolean> deleteById(@PathVariable Integer id) {
         return new ResponseEntity<>(authorService.delete(id) ? HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
 
-    @DeleteMapping("/delete/{name}")
-    public ResponseEntity<Boolean> deleteAuthorById(@PathVariable String name) {
+    @DeleteMapping("/name/{name}")
+    public ResponseEntity<Boolean> deleteByName(@PathVariable String name) {
         return new ResponseEntity<>(authorService.deleteByName(name) ? HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
 }

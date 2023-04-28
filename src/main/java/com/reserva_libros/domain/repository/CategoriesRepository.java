@@ -21,6 +21,12 @@ public interface CategoriesRepository {
      * @return Optional de la categoria encontrada
      */
     Optional<CategoriesDto> getCategoryByName(String name);
+
+    /**
+     * Devuelve una categoria dada su id
+     * @param id Id de la categoria
+     * @return Optional de la categoria encontrada
+     */
     Optional<CategoriesDto> getCategoryById(Integer id);
 
     /**

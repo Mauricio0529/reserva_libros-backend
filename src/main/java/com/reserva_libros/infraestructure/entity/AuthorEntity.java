@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 /**
  * Entidad de autor
  */
@@ -30,4 +32,6 @@ public class AuthorEntity {
     @Column(name = "nombre")
     private String name;
 
+    @OneToMany(mappedBy = "authors", orphanRemoval = true)
+    private List<BookEntity> bookEntities;
 }

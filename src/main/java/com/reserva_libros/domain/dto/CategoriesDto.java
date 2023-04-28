@@ -6,23 +6,22 @@ package com.reserva_libros.domain.dto;
 
 public class CategoriesDto {
 
-    private Integer id_categoria;
+    private Integer id;
+    private String name;
 
-    private String nameCategory;
-
-    public Integer getId_categoria() {
-        return id_categoria;
+    public Integer getId() {
+        return id;
     }
 
-    public void setId_categoria(Integer id_categoria) {
-        this.id_categoria = id_categoria;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getNameCategory() {
-        return nameCategory;
+    public String getName() {
+        return name;
     }
 
-    public void setNameCategory(String nameCategory) {
-        this.nameCategory = nameCategory;
+    public void setName(String name) {
+        this.name = name;
     }
 }

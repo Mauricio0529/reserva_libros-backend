@@ -22,26 +22,13 @@ public class CategoriesController {
     }
 
     @GetMapping("/{name}")
-    public ResponseEntity<CategoriesDto> getCategoryByName(@PathVariable String name){
+    public ResponseEntity<CategoriesDto> getByName(@PathVariable String name){
         return ResponseEntity.of(categoriesService.getCategory(name));
     }
 
     @PostMapping()
     public ResponseEntity<CategoriesDto> save(@RequestBody CategoriesDto categoriesDto) {
-
         return new ResponseEntity<>(categoriesService.save(categoriesDto), HttpStatus.CREATED);
-
-        /*try {
-            /*
-            return ResponseEntity.status(HttpStatus.CREATED)
-                    .body(iBrandCarUseCase.save(brandCarDtoNew));
-             /
-            return new ResponseEntity<>(categoriesService.save(categoriesDto), HttpStatus.CREATED);
-        } catch (Exception exception) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            // return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
-        */
     }
 
     @PatchMapping()
@@ -52,17 +39,11 @@ public class CategoriesController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Boolean> delete(@PathVariable Integer id) {
-        /** SI SE ENCUENTRA LA CATEGORIA A ELIMINAR LANZA UN OK
-         * Y
-         * SI NO ENCUENTRA CATEGORA LANZA NO_FOUND (NO CONTENIDO)*/
         return new ResponseEntity<>(categoriesService.delete(id) ? HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
 
     @DeleteMapping("/delete/{name}")
     public ResponseEntity<Boolean> deleteByNameCategory(@PathVariable String name) {
-        /** SI SE ENCUENTRA LA CATEGORIA A ELIMINAR LANZA UN OK
-         * Y
-         * SI NO ENCUENTRA CATEGORA LANZA NO_FOUND (NO CONTENIDO)*/
         return new ResponseEntity<>(categoriesService.deleteByNameCategory(name) ? HttpStatus.OK : HttpStatus.NOT_FOUND);
     }
 }

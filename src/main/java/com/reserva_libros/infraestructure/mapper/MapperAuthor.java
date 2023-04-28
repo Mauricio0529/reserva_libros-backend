@@ -3,6 +3,7 @@ package com.reserva_libros.infraestructure.mapper;
 import com.reserva_libros.domain.dto.AuthorDto;
 import com.reserva_libros.infraestructure.entity.AuthorEntity;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 import java.util.List;
 
@@ -21,6 +22,7 @@ public interface MapperAuthor {
      * @param authorDto Dto de autor
      * @return Entidad de autor
      */
+    @Mapping(target = "bookEntities", ignore = true)
     AuthorEntity toAuthorEntity(AuthorDto authorDto);
 
     /**

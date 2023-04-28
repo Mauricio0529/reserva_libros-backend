@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 /**
  * Entidad de categorias
  */
@@ -19,8 +21,14 @@ public class CategoriesEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id_categoria;
+    private Integer id;
 
-    @Column(name = "categoria")
-    private String nameCategory;
+    @Column(name = "nombre")
+    private String name;
+
+    /**
+     * orphanRemoval = true, se comporta igual al indicar tipo cascada.
+     */
+    @OneToMany(mappedBy = "category", orphanRemoval = true)
+    private List<BookEntity> bookEntities;
 }

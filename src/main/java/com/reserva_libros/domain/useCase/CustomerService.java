@@ -1,6 +1,7 @@
 package com.reserva_libros.domain.useCase;
 
 import com.reserva_libros.domain.dto.CustomerDto;
+import com.reserva_libros.domain.dto.ResponseCustomerDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,7 +16,7 @@ public interface CustomerService {
 
     Optional<CustomerDto> getCustomerByEmail(String email);
 
-    CustomerDto save(CustomerDto customerDto);
+    ResponseCustomerDto save(CustomerDto customerDto);
 
     Optional<CustomerDto> update(CustomerDto customerDto);
 

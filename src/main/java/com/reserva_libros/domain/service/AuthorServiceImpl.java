@@ -27,10 +27,6 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public Optional<AuthorDto> getAuthorByName(String name) {
-        /**
-         * No se valida si existe ese usuario, ya que en el controller,
-         * se usa el Http para validar si la peticion viene sin contenido (Not_Fount)
-         */
         return authorRepository.getAuthorByName(name);
     }
 

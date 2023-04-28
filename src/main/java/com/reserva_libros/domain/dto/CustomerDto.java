@@ -15,6 +15,8 @@ public class CustomerDto {
     private String username;
     private String password;
     private String email;
+    // private Integer active
+    // private String rol;
     private Integer numberCellPhone; // Double
 
     public Integer getCardId() {

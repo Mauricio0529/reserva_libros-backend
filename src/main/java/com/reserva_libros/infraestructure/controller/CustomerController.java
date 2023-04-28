@@ -1,6 +1,7 @@
 package com.reserva_libros.infraestructure.controller;
 
 import com.reserva_libros.domain.dto.CustomerDto;
+import com.reserva_libros.domain.dto.ResponseCustomerDto;
 import com.reserva_libros.domain.useCase.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,23 +23,24 @@ public class CustomerController {
     }
 
     @GetMapping("/{cardId}")
-    public ResponseEntity<CustomerDto> getCustomerById(@PathVariable Integer cardId) {
+    public ResponseEntity<CustomerDto> getById(@PathVariable Integer cardId) {
         return ResponseEntity.of(customerService.getCustomerByCardId(cardId));
     }
 
     @GetMapping("/username/{username}")
-    public ResponseEntity<CustomerDto> getCustomerByUserName(@PathVariable String username) {
+    public ResponseEntity<CustomerDto> getByUserName(@PathVariable String username) {
         return ResponseEntity.of(customerService.getCustomerByUserName(username));
     }
 
     @GetMapping("/email/{email}")
-    public ResponseEntity<CustomerDto> getCustomerByEmail(@PathVariable String email) {
+    public ResponseEntity<CustomerDto> getByEmail(@PathVariable String email) {
         return ResponseEntity.of(customerService.getCustomerByEmail(email));
     }
 
     @PostMapping()
-    public ResponseEntity<CustomerDto> save(@RequestBody CustomerDto customerDto) {
-        return new ResponseEntity<>(customerService.save(customerDto), HttpStatus.CREATED);
+    public ResponseEntity<ResponseCustomerDto> save(@RequestBody CustomerDto customerDto) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(customerService.save(customerDto));
     }
 
     @PatchMapping()

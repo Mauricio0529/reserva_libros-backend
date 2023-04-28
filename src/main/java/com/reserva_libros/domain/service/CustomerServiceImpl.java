@@ -1,9 +1,12 @@
 package com.reserva_libros.domain.service;
 
 import com.reserva_libros.domain.dto.CustomerDto;
+import com.reserva_libros.domain.dto.ResponseCustomerDto;
 import com.reserva_libros.domain.repository.CustomerRepository;
 import com.reserva_libros.domain.useCase.CustomerService;
+import com.reserva_libros.infraestructure.exception.EmailValidationException;
 
+import java.security.SecureRandom;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,8 +39,24 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerDto save(CustomerDto customerDto) {
-        return customerRepository.save(customerDto);
+    public ResponseCustomerDto save(CustomerDto customerDto) {
+
+        /**
+         * Validar el email, esto retorna boolean,
+         * true si cumple la condicion y hace el match.
+         */
+        if(!customerDto.getEmail().matches("^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@"
+                + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$")) {
+            throw new EmailValidationException();
+        }
+
+        /** GENERAMOS LA CONTRASEÑA */
+        String passwordGenerated = generateRandomPassword(8);
+        customerDto.setPassword(passwordGenerated);
+
+        customerRepository.save(customerDto);
+
+        return new ResponseCustomerDto(passwordGenerated);
     }
 
     @Override
@@ -46,6 +65,26 @@ public class CustomerServiceImpl implements CustomerService {
             return Optional.empty();
         }
         return Optional.of(customerRepository.save(customerDto));
+    }
+
+    // Método para generar una contraseña alfanumérica aleatoria de una longitud específica
+    private String generateRandomPassword(int lengthPassword) {
+
+        // Rango ASCII – alfanumérico (0-9, a-z, A-Z)
+        final String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+        SecureRandom random = new SecureRandom();
+        StringBuilder password = new StringBuilder();
+
+        // cada iteración del bucle elige aleatoriamente un carácter del dado
+        // rango ASCII y lo agrega a la instancia `StringBuilder`
+
+        for (int i = 0; i < lengthPassword; i++) {
+            int randomIndex = random.nextInt(chars.length());
+            password.append(chars.charAt(randomIndex));
+        }
+
+        return password.toString();
     }
 
     @Override

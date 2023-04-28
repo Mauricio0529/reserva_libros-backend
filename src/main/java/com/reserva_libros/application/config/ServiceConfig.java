@@ -1,9 +1,11 @@
 package com.reserva_libros.application.config;
 
 import com.reserva_libros.domain.repository.AuthorRepository;
+import com.reserva_libros.domain.repository.BookRepository;
 import com.reserva_libros.domain.repository.CategoriesRepository;
 import com.reserva_libros.domain.repository.CustomerRepository;
 import com.reserva_libros.domain.service.AuthorServiceImpl;
+import com.reserva_libros.domain.service.BookServiceImpl;
 import com.reserva_libros.domain.service.CategoriesServiceImpl;
 import com.reserva_libros.domain.service.CustomerServiceImpl;
 import org.springframework.context.annotation.Bean;
@@ -25,6 +27,11 @@ public class ServiceConfig {
     @Bean
     public CustomerServiceImpl customerServiceImpl(CustomerRepository customerRepository) {
         return new CustomerServiceImpl(customerRepository);
+    }
+
+    @Bean
+    public BookServiceImpl bookServiceImpl(BookRepository bookRepository) {
+        return new BookServiceImpl(bookRepository);
     }
 
 }

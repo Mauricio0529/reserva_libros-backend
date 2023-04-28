@@ -15,8 +15,8 @@ import java.util.Optional;
  * Repositorio de categorias
  */
 
-@RequiredArgsConstructor
 @Repository
+@RequiredArgsConstructor
 public class CategoriesRepositoryImpl implements CategoriesRepository {
 
     /**
@@ -36,7 +36,7 @@ public class CategoriesRepositoryImpl implements CategoriesRepository {
 
     @Override
     public Optional<CategoriesDto> getCategoryByName(String name) {
-        return categoriesCrudRepository.findByNameCategory(name).map(mapper::toCategoriesDto);
+        return categoriesCrudRepository.findByName(name).map(mapper::toCategoriesDto);
     }
 
     @Override
