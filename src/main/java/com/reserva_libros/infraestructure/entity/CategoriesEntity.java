@@ -26,9 +26,6 @@ public class CategoriesEntity {
     @Column(name = "nombre")
     private String name;
 
-    /**
-     * orphanRemoval = true, se comporta igual al indicar tipo cascada.
-     */
     @OneToMany(mappedBy = "category", orphanRemoval = true)
     private List<BookEntity> bookEntities;
 }

@@ -14,6 +14,7 @@ public interface MapperBook {
 
     @Mapping(target = "authors", ignore = true)
     @Mapping(target = "category", ignore = true)
+    @Mapping(target = "bookReservesEntities", ignore = true)
     BookEntity toBookEntity(BookDto bookDto);
 
     List<BookDto> toBookDtoList(List<BookEntity> bookEntity);

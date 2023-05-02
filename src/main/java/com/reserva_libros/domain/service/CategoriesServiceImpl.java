@@ -31,8 +31,7 @@ public class CategoriesServiceImpl implements CategoriesService {
     }
 
     /**
-     * Se usa Optional para no retornar un null,
-     * ya que la funcion del Optional es manejar los null
+     * Se usa Optional para no retornar un null.
      */
     @Override
     public Optional<CategoriesDto> update(CategoriesDto categoriesDto) {

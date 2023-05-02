@@ -15,9 +15,9 @@ public class CustomerDto {
     private String username;
     private String password;
     private String email;
-    // private Integer active
-    // private String rol;
-    private Integer numberCellPhone; // Double
+    private Integer active;
+    private String rol;
+    private Double numberCellPhone;
 
     public Integer getCardId() {
         return cardId;
@@ -67,11 +67,27 @@ public class CustomerDto {
         this.email = email;
     }
 
-    public Integer getNumberCellPhone() {
+    public Integer getActive() {
+        return active;
+    }
+
+    public void setActive(Integer active) {
+        this.active = active;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
+
+    public Double getNumberCellPhone() {
         return numberCellPhone;
     }
 
-    public void setNumberCellPhone(Integer numberCellPhone) {
+    public void setNumberCellPhone(Double numberCellPhone) {
         this.numberCellPhone = numberCellPhone;
     }
 }

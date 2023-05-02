@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Table(name = "libros")
 @Getter @Setter
@@ -46,5 +48,8 @@ public class BookEntity {
     @ManyToOne()
     @JoinColumn(name = "categoriasid", insertable = false, updatable = false)
     private CategoriesEntity category;
+
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
+    private List<BookReservesEntity> bookReservesEntities;
 
 }
