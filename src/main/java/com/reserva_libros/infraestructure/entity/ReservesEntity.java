@@ -1,7 +1,9 @@
 package com.reserva_libros.infraestructure.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
@@ -10,9 +12,12 @@ import java.util.List;
 /**
  * entity de reserva
  */
-@Getter @Setter
+
 @Entity
 @Table(name = "reservas")
+@Getter @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class ReservesEntity {
     /**
      * esto seria como el carrito de compras
@@ -39,7 +44,7 @@ public class ReservesEntity {
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime dateReserves;
 
-    @OneToMany(mappedBy = "reserves", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "reserves", cascade = {CascadeType.ALL})
     private List<BookReservesEntity> bookReservesEntities; /** todos los libros de la reserva */
 
     @ManyToOne()

@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * Dto del guardado de una reserva
+ * Dto del guardado de una reserva. (factura o carrito de compras)
  */
 public class ReservesRequestDto {
 
@@ -14,5 +14,5 @@ public class ReservesRequestDto {
     private LocalDateTime dateDelivery;
     private LocalDateTime dateReserves;
 
-    private List<BooksReservesRequestDto> booksReserves;
+    private List<BooksReservesRequestDto> bookReservesEntities;
 }

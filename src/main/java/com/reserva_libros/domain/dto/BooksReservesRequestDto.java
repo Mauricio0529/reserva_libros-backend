@@ -7,5 +7,5 @@ public class BooksReservesRequestDto {
 
     private Integer reservesId;
     private Integer booksCode;
-    private Integer quantity;
+    private Integer quantity; /** cantidad por unidad */
 }

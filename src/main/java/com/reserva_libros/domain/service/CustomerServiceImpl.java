@@ -5,6 +5,8 @@ import com.reserva_libros.domain.dto.ResponseCustomerDto;
 import com.reserva_libros.domain.repository.CustomerRepository;
 import com.reserva_libros.domain.useCase.CustomerService;
 import com.reserva_libros.infraestructure.exception.EmailValidationException;
+import com.reserva_libros.security.Roles;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.security.SecureRandom;
 import java.util.List;
@@ -14,8 +16,12 @@ public class CustomerServiceImpl implements CustomerService {
 
     private final CustomerRepository customerRepository;
 
-    public CustomerServiceImpl(CustomerRepository customerRepository) {
+    private final PasswordEncoder passwordEncoder;
+
+    public CustomerServiceImpl(CustomerRepository customerRepository,
+                               PasswordEncoder passwordEncoder) {
         this.customerRepository = customerRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -52,7 +58,9 @@ public class CustomerServiceImpl implements CustomerService {
 
         /** GENERAMOS LA CONTRASEÑA */
         String passwordGenerated = generateRandomPassword(8);
-        customerDto.setPassword(passwordGenerated);
+        customerDto.setPassword(passwordEncoder.encode(passwordGenerated));
+        customerDto.setActive(1);
+        customerDto.setRol(Roles.CUSTOMER);
 
         customerRepository.save(customerDto);
 

@@ -4,12 +4,11 @@ import com.reserva_libros.domain.repository.AuthorRepository;
 import com.reserva_libros.domain.repository.BookRepository;
 import com.reserva_libros.domain.repository.CategoriesRepository;
 import com.reserva_libros.domain.repository.CustomerRepository;
-import com.reserva_libros.domain.service.AuthorServiceImpl;
-import com.reserva_libros.domain.service.BookServiceImpl;
-import com.reserva_libros.domain.service.CategoriesServiceImpl;
-import com.reserva_libros.domain.service.CustomerServiceImpl;
+import com.reserva_libros.domain.service.*;
+import com.reserva_libros.security.JwtAuthenticationProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 public class ServiceConfig {
@@ -25,13 +24,22 @@ public class ServiceConfig {
     }
 
     @Bean
-    public CustomerServiceImpl customerServiceImpl(CustomerRepository customerRepository) {
-        return new CustomerServiceImpl(customerRepository);
+    public CustomerServiceImpl customerServiceImpl(CustomerRepository customerRepository,
+                                                   PasswordEncoder passwordEncoder) {
+        return new CustomerServiceImpl(customerRepository, passwordEncoder);
     }
 
     @Bean
     public BookServiceImpl bookServiceImpl(BookRepository bookRepository) {
         return new BookServiceImpl(bookRepository);
+    }
+
+    @Bean
+    public AuthService authService(CustomerRepository customerRepository,
+                                   JwtAuthenticationProvider jwtAuthenticationProvider,
+                                   PasswordEncoder passwordEncoder) {
+
+        return new AuthService(customerRepository, jwtAuthenticationProvider, passwordEncoder);
     }
 
 }

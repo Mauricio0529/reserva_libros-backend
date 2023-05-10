@@ -1,5 +1,6 @@
 package com.reserva_libros.infraestructure.entity;
 
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,8 +25,9 @@ public class BookReservesEntity {
     @JoinColumn(name = "reservascodigo_reserva", insertable = false, updatable = false)
     private ReservesEntity reserves;
 
-
     @ManyToOne()
     @JoinColumn(name = "libroscodigo_libro", insertable = false, updatable = false)
-    private ReservesEntity book;
+    private BookEntity book;
+
+
 }

@@ -23,7 +23,7 @@ public class CustomerEntity {
     private String name;
 
     @Column(name = "apellidos")
-    private String surnames;
+    private String lestName;
 
     @Column(name = "nombre_usuario")
     private String username;

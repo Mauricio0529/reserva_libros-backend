@@ -49,7 +49,7 @@ public class BookEntity {
     @JoinColumn(name = "categoriasid", insertable = false, updatable = false)
     private CategoriesEntity category;
 
-    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "book") // cascade = CascadeType.ALL
     private List<BookReservesEntity> bookReservesEntities;
 
 }

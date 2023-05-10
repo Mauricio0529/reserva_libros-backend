@@ -11,7 +11,7 @@ public class CustomerDto {
      */
     private Integer cardId;
     private String name;
-    private String surnames;
+    private String lestName;
     private String username;
     private String password;
     private String email;
@@ -35,12 +35,12 @@ public class CustomerDto {
         this.name = name;
     }
 
-    public String getSurnames() {
-        return surnames;
+    public String getLestName() {
+        return lestName;
     }
 
-    public void setSurnames(String surnames) {
-        this.surnames = surnames;
+    public void setLestName(String lestName) {
+        this.lestName = lestName;
     }
 
     public String getUsername() {

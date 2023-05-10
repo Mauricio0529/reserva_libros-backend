@@ -19,5 +19,5 @@ public class BookReservesPK implements Serializable {
     private Integer reservesId;
 
     @Column(name = "libroscodigo_libro")
-    private Integer booksCode;
+    private Integer bookId;
 }

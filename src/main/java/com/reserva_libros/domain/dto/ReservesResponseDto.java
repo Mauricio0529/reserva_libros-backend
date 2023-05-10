@@ -9,7 +9,7 @@ import java.util.List;
 public class ReservesResponseDto {
     private Integer id;
     private Integer customerCardId;
-    private Integer totalReserves; /** */
+    private Integer totalReserves;
     private LocalDateTime dateDelivery;
     private LocalDateTime dateReserves;
 

@@ -4,6 +4,7 @@ import com.reserva_libros.domain.dto.BookDto;
 import com.reserva_libros.domain.repository.BookRepository;
 import com.reserva_libros.domain.useCase.BookService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,6 +16,10 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<BookDto> getAll() {
+        System.out.println("lista de AUTORIDADES");
+        var listaRoles = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+        System.out.println(listaRoles);
+
         return bookRepository.getAll();
     }
 

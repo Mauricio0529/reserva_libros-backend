@@ -5,6 +5,6 @@ package com.reserva_libros.domain.dto;
  */
 public class BooksReservesResponseDto {
 
-    private String titleBook;
+    private String title;
     private Integer quantity;
 }
