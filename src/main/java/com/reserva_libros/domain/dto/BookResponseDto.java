@@ -1,39 +1,16 @@
 package com.reserva_libros.domain.dto;
 
-public class BookDto {
+/**
+ * Dto response Book
+ */
 
-    private Integer bookId;
-    private Integer authorId;
-    private Integer categoryId;
+public class BookResponseDto {
+
     private String title;
     private String description;
     private String imagePath;
     private Integer yearOfPublication;
     private Integer active;
-
-    public Integer getBookId() {
-        return bookId;
-    }
-
-    public void setBookId(Integer bookId) {
-        this.bookId = bookId;
-    }
-
-    public Integer getAuthorId() {
-        return authorId;
-    }
-
-    public void setAuthorId(Integer authorId) {
-        this.authorId = authorId;
-    }
-
-    public Integer getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(Integer categoryId) {
-        this.categoryId = categoryId;
-    }
 
     public String getTitle() {
         return title;

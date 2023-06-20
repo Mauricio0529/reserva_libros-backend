@@ -1,6 +1,7 @@
 package com.reserva_libros.infraestructure.controller;
 
-import com.reserva_libros.domain.dto.BookDto;
+import com.reserva_libros.domain.dto.BookRequestDto;
+import com.reserva_libros.domain.dto.BookResponseDto;
 import com.reserva_libros.domain.useCase.BookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,42 +18,42 @@ public class BookController {
     private final BookService bookService;
 
     @GetMapping()
-    public ResponseEntity<List<BookDto>> getAll() {
-        return new ResponseEntity<>(bookService.getAll(), HttpStatus.OK);
+    public ResponseEntity<List<BookResponseDto>> getAll() {
+        return ResponseEntity.ok(bookService.getAll());
     }
 
     @GetMapping("/{bookId}")
-    public ResponseEntity<BookDto> getById(@PathVariable Integer bookId) {
+    public ResponseEntity<BookRequestDto> getById(@PathVariable Integer bookId) {
         return ResponseEntity.of(bookService.getById(bookId));
     }
 
     @GetMapping("/title/{title}")
-    public ResponseEntity<BookDto> getByTitle(@PathVariable String title) {
+    public ResponseEntity<BookRequestDto> getByTitle(@PathVariable String title) {
         return ResponseEntity.of(bookService.getByTitle(title));
     }
 
     @GetMapping("/category-book/{categoryId}")
-    public ResponseEntity<List<BookDto>> getByCategoryId(@PathVariable Integer categoryId) {
+    public ResponseEntity<List<BookRequestDto>> getByCategoryId(@PathVariable Integer categoryId) {
         return new ResponseEntity<>(bookService.getByCategoryId(categoryId), HttpStatus.OK);
     }
 
     @GetMapping("/author-book/{authorId}")
-    public ResponseEntity<List<BookDto>> getByAuthorId(@PathVariable Integer authorId) {
+    public ResponseEntity<List<BookRequestDto>> getByAuthorId(@PathVariable Integer authorId) {
         return new ResponseEntity<>(bookService.getByAuthorId(authorId), HttpStatus.OK);
     }
 
     @GetMapping("/year-book/{year}")
-    public ResponseEntity<List<BookDto>> getByYear(@PathVariable Integer year) {
+    public ResponseEntity<List<BookRequestDto>> getByYear(@PathVariable Integer year) {
         return new ResponseEntity<>(bookService.getBookByYearLessThan(year), HttpStatus.OK);
     }
 
     @PostMapping()
-    public ResponseEntity<BookDto> save(@RequestBody BookDto bookDto) {
+    public ResponseEntity<BookRequestDto> save(@RequestBody BookRequestDto bookDto) {
         return new ResponseEntity<>(bookService.save(bookDto), HttpStatus.CREATED);
     }
 
     @PatchMapping()
-    public ResponseEntity<BookDto> update(@RequestBody BookDto bookDto) {
+    public ResponseEntity<BookRequestDto> update(@RequestBody BookRequestDto bookDto) {
         return ResponseEntity.of(bookService.update(bookDto));
     }
 

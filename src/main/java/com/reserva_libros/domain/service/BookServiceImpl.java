@@ -1,6 +1,7 @@
 package com.reserva_libros.domain.service;
 
-import com.reserva_libros.domain.dto.BookDto;
+import com.reserva_libros.domain.dto.BookRequestDto;
+import com.reserva_libros.domain.dto.BookResponseDto;
 import com.reserva_libros.domain.repository.BookRepository;
 import com.reserva_libros.domain.useCase.BookService;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +16,7 @@ public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
 
     @Override
-    public List<BookDto> getAll() {
+    public List<BookResponseDto> getAll() {
         System.out.println("lista de AUTORIDADES");
         var listaRoles = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
         System.out.println(listaRoles);
@@ -24,37 +25,37 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Optional<BookDto> getById(Integer bookId) {
+    public Optional<BookRequestDto> getById(Integer bookId) {
         return bookRepository.getById(bookId);
     }
 
     @Override
-    public Optional<BookDto> getByTitle(String title) {
+    public Optional<BookRequestDto> getByTitle(String title) {
         return bookRepository.getByTitle(title);
     }
 
     @Override
-    public List<BookDto> getByCategoryId(Integer categoryId) {
+    public List<BookRequestDto> getByCategoryId(Integer categoryId) {
         return bookRepository.getByCategoryId(categoryId);
     }
 
     @Override
-    public List<BookDto> getByAuthorId(Integer authorId) {
+    public List<BookRequestDto> getByAuthorId(Integer authorId) {
         return bookRepository.getByAuthorId(authorId);
     }
 
     @Override
-    public List<BookDto> getBookByYearLessThan(Integer year) {
+    public List<BookRequestDto> getBookByYearLessThan(Integer year) {
         return bookRepository.getBookByYearLessThan(year);
     }
 
     @Override
-    public BookDto save(BookDto bookDto) {
+    public BookRequestDto save(BookRequestDto bookDto) {
         return bookRepository.save(bookDto);
     }
 
     @Override
-    public Optional<BookDto> update(BookDto bookDto) {
+    public Optional<BookRequestDto> update(BookRequestDto bookDto) {
         if(bookRepository.getById(bookDto.getBookId()).isEmpty()) {
             return Optional.empty();
         }
@@ -72,7 +73,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public boolean deleteByTitle(String title) {
-        Optional<BookDto> bookDto = bookRepository.getByTitle(title);
+        Optional<BookRequestDto> bookDto = bookRepository.getByTitle(title);
 
         if(bookDto.isEmpty()) {
             return false;

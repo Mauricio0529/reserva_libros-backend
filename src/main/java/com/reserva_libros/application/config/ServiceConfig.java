@@ -1,9 +1,6 @@
 package com.reserva_libros.application.config;
 
-import com.reserva_libros.domain.repository.AuthorRepository;
-import com.reserva_libros.domain.repository.BookRepository;
-import com.reserva_libros.domain.repository.CategoriesRepository;
-import com.reserva_libros.domain.repository.CustomerRepository;
+import com.reserva_libros.domain.repository.*;
 import com.reserva_libros.domain.service.*;
 import com.reserva_libros.security.JwtAuthenticationProvider;
 import org.springframework.context.annotation.Bean;
@@ -40,6 +37,11 @@ public class ServiceConfig {
                                    PasswordEncoder passwordEncoder) {
 
         return new AuthService(customerRepository, jwtAuthenticationProvider, passwordEncoder);
+    }
+
+    @Bean
+    public ReservesServiceImpl reservesService(ReservesRepository bookRepository) {
+        return new ReservesServiceImpl(bookRepository);
     }
 
 }

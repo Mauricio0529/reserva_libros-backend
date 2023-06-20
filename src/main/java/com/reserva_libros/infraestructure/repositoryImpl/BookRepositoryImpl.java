@@ -1,6 +1,7 @@
 package com.reserva_libros.infraestructure.repositoryImpl;
 
-import com.reserva_libros.domain.dto.BookDto;
+import com.reserva_libros.domain.dto.BookRequestDto;
+import com.reserva_libros.domain.dto.BookResponseDto;
 import com.reserva_libros.domain.repository.BookRepository;
 import com.reserva_libros.infraestructure.crud.BookCrudRepository;
 import com.reserva_libros.infraestructure.entity.BookEntity;
@@ -20,27 +21,27 @@ public class BookRepositoryImpl implements BookRepository {
     private final MapperBook mapperBook;
 
     @Override
-    public List<BookDto> getAll() {
-        return mapperBook.toBookDtoList(bookCrudRepository.findAll());
+    public List<BookResponseDto> getAll() {
+        return mapperBook.toBookResponseDto(bookCrudRepository.findAll());
     }
 
     @Override
-    public Optional<BookDto> getById(Integer bookId) {
+    public Optional<BookRequestDto> getById(Integer bookId) {
         return bookCrudRepository.findById(bookId).map(mapperBook::toBookDto);
     }
 
     @Override
-    public Optional<BookDto> getByTitle(String title) {
+    public Optional<BookRequestDto> getByTitle(String title) {
         return bookCrudRepository.findByTitle(title).map(mapperBook::toBookDto);
     }
 
     @Override
-    public List<BookDto> getByCategoryId(Integer categoryId) {
+    public List<BookRequestDto> getByCategoryId(Integer categoryId) {
         return mapperBook.toBookDtoList(bookCrudRepository.findAllByCategoryId(categoryId));
     }
 
     @Override
-    public List<BookDto> getByAuthorId(Integer authorId) {
+    public List<BookRequestDto> getByAuthorId(Integer authorId) {
         return mapperBook.toBookDtoList(bookCrudRepository.findAllByAuthorId(authorId));
     }
 
@@ -51,12 +52,13 @@ public class BookRepositoryImpl implements BookRepository {
      * @return Lista de libros encontrados.
      */
     @Override
-    public List<BookDto> getBookByYearLessThan(Integer year) {
+    public List<BookRequestDto> getBookByYearLessThan(Integer year) {
         return mapperBook.toBookDtoList(bookCrudRepository.findAllByYearOfPublicationLessThanEqualOrderByYearOfPublicationDesc(year));
     }
 
     @Override
-    public BookDto save(BookDto bookDto) {
+    public BookRequestDto save(BookRequestDto bookDto) {
+        bookDto.setActive(1);
         BookEntity bookEntity = bookCrudRepository.save(mapperBook.toBookEntity(bookDto));
         return mapperBook.toBookDto(bookCrudRepository.save(bookEntity));
     }

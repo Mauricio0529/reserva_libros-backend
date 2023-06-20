@@ -11,6 +11,6 @@ public interface MapperBookReserves {
     @Mapping(source = "bookId", target = "id.bookId")
     @Mapping(target = "book", ignore = true)
     @Mapping(target = "reserves", ignore = true)
-    // @Mapping(target = "id.purchaseNumberBill", ignore = true)
+    // @Mapping(target = "id.reservesId", ignore = true)
     BookReservesEntity toBookReservesEntity(BookReservesRequestDto reservesRequestDto);
 }

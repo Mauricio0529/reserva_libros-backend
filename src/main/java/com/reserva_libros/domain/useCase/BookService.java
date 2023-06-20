@@ -1,31 +1,32 @@
 package com.reserva_libros.domain.useCase;
 
-import com.reserva_libros.domain.dto.BookDto;
+import com.reserva_libros.domain.dto.BookRequestDto;
+import com.reserva_libros.domain.dto.BookResponseDto;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface BookService {
 
-    List<BookDto> getAll();
+    List<BookResponseDto> getAll();
 
-    Optional<BookDto> getById(Integer bookId);
+    Optional<BookRequestDto> getById(Integer bookId);
 
-    Optional<BookDto> getByTitle(String title);
+    Optional<BookRequestDto> getByTitle(String title);
 
     /**
      Devuelve lista de libros dada una categoria.
      @param categoryId Id de categoria a buscar.
      @return Lista de lisbros encontrados.
      */
-    List<BookDto> getByCategoryId(Integer categoryId);
+    List<BookRequestDto> getByCategoryId(Integer categoryId);
 
     /**
      Devuelve lista de libros dada su autor.
      @param authorId Id de autor a buscar.
      @return Lista de libros encontrados.
      */
-    List<BookDto> getByAuthorId(Integer authorId);
+    List<BookRequestDto> getByAuthorId(Integer authorId);
 
     /**
      * Devuelve lista de libros apartir de una fecha ingresada.
@@ -33,11 +34,11 @@ public interface BookService {
      * @param year Año de publicacion del libro.
      * @return Lista de libros encontrados.
      */
-    List<BookDto> getBookByYearLessThan(Integer year);
+    List<BookRequestDto> getBookByYearLessThan(Integer year);
 
-    BookDto save(BookDto bookDto);
+    BookRequestDto save(BookRequestDto bookDto);
 
-    Optional<BookDto> update(BookDto bookDto);
+    Optional<BookRequestDto> update(BookRequestDto bookDto);
 
     boolean delete(Integer bookId);
 

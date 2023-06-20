@@ -1,7 +1,6 @@
 package com.reserva_libros.infraestructure.controller;
 
 import com.reserva_libros.domain.dto.CustomerDto;
-import com.reserva_libros.domain.dto.ResponseCustomerDto;
 import com.reserva_libros.domain.useCase.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -37,11 +36,13 @@ public class CustomerController {
         return ResponseEntity.of(customerService.getCustomerByEmail(email));
     }
 
+    /*
     @PostMapping()
     public ResponseEntity<ResponseCustomerDto> save(@RequestBody CustomerDto customerDto) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(customerService.save(customerDto));
     }
+    */
 
     @PatchMapping()
     public ResponseEntity<CustomerDto> update(@RequestBody CustomerDto customerDto) {

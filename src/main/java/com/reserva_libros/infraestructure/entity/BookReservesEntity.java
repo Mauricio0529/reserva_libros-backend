@@ -1,6 +1,5 @@
 package com.reserva_libros.infraestructure.entity;
 
-
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

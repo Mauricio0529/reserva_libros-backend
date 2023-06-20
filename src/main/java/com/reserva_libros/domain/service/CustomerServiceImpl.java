@@ -4,6 +4,7 @@ import com.reserva_libros.domain.dto.CustomerDto;
 import com.reserva_libros.domain.dto.ResponseCustomerDto;
 import com.reserva_libros.domain.repository.CustomerRepository;
 import com.reserva_libros.domain.useCase.CustomerService;
+import com.reserva_libros.infraestructure.exception.CardIdValidationException;
 import com.reserva_libros.infraestructure.exception.EmailValidationException;
 import com.reserva_libros.security.Roles;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -54,6 +55,10 @@ public class CustomerServiceImpl implements CustomerService {
         if(!customerDto.getEmail().matches("^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@"
                 + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$")) {
             throw new EmailValidationException();
+        }
+
+        if(getCustomerByCardId(customerDto.getCardId()).isPresent() || getCustomerByEmail(customerDto.getEmail()).isPresent()) {
+            throw new CardIdValidationException();
         }
 
         /** GENERAMOS LA CONTRASEÑA */

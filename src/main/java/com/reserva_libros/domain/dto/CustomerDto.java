@@ -12,7 +12,7 @@ public class CustomerDto {
     private Integer cardId;
     private String name;
     private String lestName;
-    private String username;
+    private String username; // sobra
     private String password;
     private String email;
     private Integer active;
