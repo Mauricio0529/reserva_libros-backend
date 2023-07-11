@@ -25,6 +25,13 @@ public interface ReservesRepository {
     Optional<ReservesRequestDto> getById(Integer id);
 
     /**
+     * Obtiene reserva dada el id (cedula) de un usuario
+     * @param cardId Cedula de usuario
+     * @return Optional de reserva encontrada de un usuario
+     */
+    List<ReservesRequestDto> getByCardIdCustomer(Integer cardId);
+
+    /**
      * Guarda una reserva
      * @param reservesRequestDto Reserva a guardar
      * @return Dto de reserva

@@ -40,8 +40,8 @@ public class ServiceConfig {
     }
 
     @Bean
-    public ReservesServiceImpl reservesService(ReservesRepository bookRepository) {
-        return new ReservesServiceImpl(bookRepository);
+    public ReservesServiceImpl reservesService(ReservesRepository reservesRepository, BookRepository bookRepository) {
+        return new ReservesServiceImpl(reservesRepository, bookRepository);
     }
 
 }

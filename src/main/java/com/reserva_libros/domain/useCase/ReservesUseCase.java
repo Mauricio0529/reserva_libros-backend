@@ -8,9 +8,11 @@ import java.util.Optional;
 
 public interface ReservesUseCase {
 
-    List<ReservesRequestDto> getAll();
+    List<ReservesRequestDto> getAll(); //
 
     Optional<ReservesRequestDto> getById(Integer idReserves);
+
+    List<ReservesRequestDto> getByCustomerCardId(Integer cardId);
 
     ReservesCodeResponseDto save(ReservesRequestDto reservesRequestDto);
 

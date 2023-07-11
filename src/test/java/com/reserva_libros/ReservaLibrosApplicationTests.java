@@ -33,8 +33,8 @@ class ReservaLibrosApplicationTests {
 	void setup() {
 		MockitoAnnotations.initMocks(this);
 
-		BookReservesRequestDto bookReservesReques1 = new BookReservesRequestDto(1,0221,1);
-		BookReservesRequestDto bookReservesReques2 = new BookReservesRequestDto(1,335,1);
+		BookReservesRequestDto bookReservesReques1 = new BookReservesRequestDto(1,0221,1, "titulo", "das");
+		BookReservesRequestDto bookReservesReques2 = new BookReservesRequestDto(1,335,1, "titulo", "zdxfa");
 
 		List<BookReservesRequestDto> bookReservesEntities = new ArrayList<>();
 

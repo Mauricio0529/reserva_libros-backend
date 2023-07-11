@@ -2,6 +2,7 @@ package com.reserva_libros.infraestructure.controller;
 
 import com.reserva_libros.domain.dto.ReservesCodeResponseDto;
 import com.reserva_libros.domain.dto.ReservesRequestDto;
+import com.reserva_libros.domain.dto.ReservesResponseDto;
 import com.reserva_libros.domain.useCase.ReservesUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,11 @@ public class ReservesController {
     @GetMapping("/{id}")
     public ResponseEntity<ReservesRequestDto> getById(@PathVariable Integer id) {
         return ResponseEntity.of(reservesUseCase.getById(id));
+    }
+
+    @GetMapping("/customer/{cardId}")
+    public ResponseEntity<List<ReservesRequestDto>> getReservesByCardIdCustomer(@PathVariable Integer cardId) {
+        return ResponseEntity.ok(reservesUseCase.getByCustomerCardId(cardId));
     }
 
     @PostMapping()

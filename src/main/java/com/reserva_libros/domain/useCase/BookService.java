@@ -1,14 +1,13 @@
 package com.reserva_libros.domain.useCase;
 
 import com.reserva_libros.domain.dto.BookRequestDto;
-import com.reserva_libros.domain.dto.BookResponseDto;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface BookService {
 
-    List<BookResponseDto> getAll();
+    List<BookRequestDto> getAll();
 
     Optional<BookRequestDto> getById(Integer bookId);
 

@@ -25,4 +25,9 @@ public class BookReservesResponseDto {
     private String title;
 
     private Integer quantity;
+
+    /**
+     * IMAGEN DEL LIBRO
+     * aqui se obtiene los valores del libro o del usuario
+     */
 }

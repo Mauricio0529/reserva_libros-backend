@@ -2,7 +2,7 @@ package com.reserva_libros.domain.dto;
 
 public class BookRequestDto {
 
-    private Integer bookId; // QUITAR EL ID
+    private Integer bookId;
     private Integer authorId; // string
     private Integer categoryId;
     private String title;
@@ -10,6 +10,22 @@ public class BookRequestDto {
     private String imagePath;
     private Integer yearOfPublication;
     private Integer active;
+
+    public BookRequestDto() {
+    }
+
+    public BookRequestDto(Integer bookId, Integer authorId, Integer categoryId,
+                          String title, String description, String imagePath,
+                          Integer yearOfPublication, Integer active) {
+        this.bookId = bookId;
+        this.authorId = authorId;
+        this.categoryId = categoryId;
+        this.title = title;
+        this.description = description;
+        this.imagePath = imagePath;
+        this.yearOfPublication = yearOfPublication;
+        this.active = active;
+    }
 
     public Integer getBookId() {
         return bookId;

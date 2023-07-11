@@ -32,6 +32,15 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public AuthorDto save(AuthorDto authorDto) {
+        Optional<AuthorDto> authorDto1 = getAuthorByName(authorDto.getName());
+
+        if(authorDto1.isPresent()) {
+            AuthorDto authorResponse = new AuthorDto();
+            authorResponse.setId(authorDto1.get().getId());
+            authorResponse.setName(authorDto1.get().getName());
+            return authorResponse;
+        }
+
         return authorRepository.save(authorDto);
     }
 

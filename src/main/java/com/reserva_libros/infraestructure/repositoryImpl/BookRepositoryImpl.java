@@ -1,7 +1,6 @@
 package com.reserva_libros.infraestructure.repositoryImpl;
 
 import com.reserva_libros.domain.dto.BookRequestDto;
-import com.reserva_libros.domain.dto.BookResponseDto;
 import com.reserva_libros.domain.repository.BookRepository;
 import com.reserva_libros.infraestructure.crud.BookCrudRepository;
 import com.reserva_libros.infraestructure.entity.BookEntity;
@@ -21,8 +20,8 @@ public class BookRepositoryImpl implements BookRepository {
     private final MapperBook mapperBook;
 
     @Override
-    public List<BookResponseDto> getAll() {
-        return mapperBook.toBookResponseDto(bookCrudRepository.findAll());
+    public List<BookRequestDto> getAll() {
+        return mapperBook.toBookDtoList(bookCrudRepository.findAll());
     }
 
     @Override
@@ -58,7 +57,9 @@ public class BookRepositoryImpl implements BookRepository {
 
     @Override
     public BookRequestDto save(BookRequestDto bookDto) {
-        bookDto.setActive(1);
+        if(bookDto.getActive() != 0) {
+            bookDto.setActive(1);
+        }
         BookEntity bookEntity = bookCrudRepository.save(mapperBook.toBookEntity(bookDto));
         return mapperBook.toBookDto(bookCrudRepository.save(bookEntity));
     }
