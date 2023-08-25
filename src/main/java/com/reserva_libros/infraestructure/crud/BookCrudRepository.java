@@ -10,9 +10,9 @@ public interface BookCrudRepository extends JpaRepository<BookEntity, Integer> {
 
     Optional<BookEntity> findByTitle(String title);
 
-    List<BookEntity> findAllByCategoryId(Integer categoryId);
+    List<BookEntity> findAllByCategoryId(Integer categoryId); // String
 
-    List<BookEntity> findAllByAuthorId(Integer authorId);
+    List<BookEntity> findAllByAuthorId(Integer authorId); // String
 
     /**
      * SELECT * FROM libros WHERE anio_publicacion < 2000 ORDER BY anio_publicacion DESC;

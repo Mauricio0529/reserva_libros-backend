@@ -1,13 +1,14 @@
 package com.reserva_libros.domain.repository;
 
 import com.reserva_libros.domain.dto.BookRequestDto;
+import com.reserva_libros.domain.dto.BookResponseDto;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface BookRepository {
 
-    List<BookRequestDto> getAll();
+    List<BookResponseDto> getAll();
 
     Optional<BookRequestDto> getById(Integer bookId);
 

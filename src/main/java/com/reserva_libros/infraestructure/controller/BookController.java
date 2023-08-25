@@ -18,7 +18,7 @@ public class BookController {
     private final BookService bookService;
 
     @GetMapping()
-    public ResponseEntity<List<BookRequestDto>> getAll() {
+    public ResponseEntity<List<BookResponseDto>> getAll() {
         return ResponseEntity.ok(bookService.getAll());
     }
 

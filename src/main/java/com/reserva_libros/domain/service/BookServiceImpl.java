@@ -1,6 +1,7 @@
 package com.reserva_libros.domain.service;
 
 import com.reserva_libros.domain.dto.BookRequestDto;
+import com.reserva_libros.domain.dto.BookResponseDto;
 import com.reserva_libros.domain.repository.BookRepository;
 import com.reserva_libros.domain.useCase.BookService;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +16,7 @@ public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
 
     @Override
-    public List<BookRequestDto> getAll() {
+    public List<BookResponseDto> getAll() {
         System.out.println("lista de AUTORIDADES");
         var listaRoles = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
         System.out.println(listaRoles);

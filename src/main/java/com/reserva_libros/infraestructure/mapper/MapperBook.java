@@ -1,6 +1,7 @@
 package com.reserva_libros.infraestructure.mapper;
 
 import com.reserva_libros.domain.dto.BookRequestDto;
+import com.reserva_libros.domain.dto.BookResponseDto;
 import com.reserva_libros.infraestructure.entity.BookEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -20,4 +21,7 @@ public interface MapperBook {
     BookEntity toBookEntity(BookRequestDto bookDto);
 
     List<BookRequestDto> toBookDtoList(List<BookEntity> bookEntity);
+
+
+    List<BookResponseDto> toBookDtoListResponse(List<BookEntity> bookEntity);
 }

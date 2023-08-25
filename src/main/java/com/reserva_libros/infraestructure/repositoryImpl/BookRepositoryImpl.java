@@ -1,8 +1,11 @@
 package com.reserva_libros.infraestructure.repositoryImpl;
 
 import com.reserva_libros.domain.dto.BookRequestDto;
+import com.reserva_libros.domain.dto.BookResponseDto;
 import com.reserva_libros.domain.repository.BookRepository;
+import com.reserva_libros.infraestructure.crud.AuthorCrudRepository;
 import com.reserva_libros.infraestructure.crud.BookCrudRepository;
+import com.reserva_libros.infraestructure.crud.CategoriesCrudRepository;
 import com.reserva_libros.infraestructure.entity.BookEntity;
 import com.reserva_libros.infraestructure.mapper.MapperBook;
 import lombok.RequiredArgsConstructor;
@@ -16,12 +19,28 @@ import java.util.Optional;
 public class BookRepositoryImpl implements BookRepository {
 
     private final BookCrudRepository bookCrudRepository;
-
+    private final AuthorCrudRepository authorCrudRepository;
+    private final CategoriesCrudRepository categoriesCrudRepository;
     private final MapperBook mapperBook;
 
     @Override
-    public List<BookRequestDto> getAll() {
-        return mapperBook.toBookDtoList(bookCrudRepository.findAll());
+    public List<BookResponseDto> getAll() {
+        List<BookEntity> bookEntitiesList = bookCrudRepository.findAll();
+        List<BookResponseDto> bookResponseDtoList = mapperBook.toBookDtoListResponse(bookEntitiesList);
+
+        bookResponseDtoList.stream().forEach(bookResponseDto -> {
+            bookEntitiesList.stream()
+                    .filter(bookEntity -> bookEntity.getBookId() == bookResponseDto.getBookId())
+                    .forEach(book -> {
+                        String authorName = authorCrudRepository.findById(book.getAuthorId()).get().getName();
+                        String categoriesName = categoriesCrudRepository.findById(book.getCategoryId()).get().getName();
+                        bookResponseDto.setAuthorName(authorName);
+                        bookResponseDto.setCategoryName(categoriesName);
+                    });
+        });
+
+        return bookResponseDtoList;
+
     }
 
     @Override

@@ -60,7 +60,6 @@ public class WebSecurityConfig {
 
                                 .requestMatchers(HttpMethod.POST, "/libro/**").hasRole(Roles.ADMIN)
 
-
                                 //.requestMatchers("/cars").hasAuthority("COMPRAR_PRIVILEGE")
                                 //.requestMatchers("/customers").hasRole(Roles.ADMIN)
 
@@ -69,13 +68,10 @@ public class WebSecurityConfig {
                                 //hasAuthority o hasRole para un solo rol/autoridad
                                 //hasAnyAuthority para varios roles
                                 .anyRequest().authenticated()
-
                 );
-
 
         return http.build();
     }
-
 
     /**
      * Configuracion Cors

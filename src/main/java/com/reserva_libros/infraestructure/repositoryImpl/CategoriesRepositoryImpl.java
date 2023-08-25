@@ -19,14 +19,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CategoriesRepositoryImpl implements CategoriesRepository {
 
-    /**
-     * Crud categoria
-     * */
     private final CategoriesCrudRepository categoriesCrudRepository;
-
-    /**
-     * Mapper de categoria
-     */
     private final MapperCategories mapper;
 
     @Override

@@ -19,6 +19,15 @@ public class BookReservesEntity {
     @Column(name = "cantidad")
     private Integer quantity;
 
+    @Column(name = "title-book")
+    private String title;
+
+    @Column(name = "imagePath")
+    private String imagePath;
+
+    @Column(name = "author-book")
+    private String author;
+
     @ManyToOne()
     @MapsId(value = "reservesId")
     @JoinColumn(name = "reservascodigo_reserva", insertable = false, updatable = false)

@@ -6,32 +6,19 @@ import lombok.Setter;
 
 /**
  * Dto del guardado de los libros de una reserva
+ * Detalle reserva
  */
 
 @Getter @Setter
 @AllArgsConstructor
 public class BookReservesRequestDto {
 
-    /**
-     * Detalle compra
-     * detalle del carrito
-     */
-
-    /** CARRITO DE COMPRAS ***
-     *
-     * ESTE AGREGARIA LOS LIBROS AL CARRITO DE COMPRAS
-     *
-     * ESTE AGREGARIA LOS LIBROS QUE SELECCIONO PARA EL CARRITO DE COMPRAS
-     */
-
-    private Integer reservesId; // NUMERO DE FACTURA, NUMERO DE REFERENCIA DE RESERVA
+    // NUMERO DE REFERENCIA DE RESERVA
+    private Integer reservesId;
     private Integer bookId;
-    private Integer quantity; /** unidad */
+    private Integer quantity;
     private String title;
     private String imagePath;
+    private String author;
 
-    /**
-     * private String title;
-     * private String imgPath;
-     */
 }

@@ -28,9 +28,7 @@ public class ReservesRepositoryImpl implements ReservesRepository {
 
         List<ReservesEntity> reservesEntities = reservesCrudRepository.findAll();
         List<ReservesRequestDto> reservesRequestDtos = new ArrayList<>();
-/*
-        reservesEntities.forEach(reservesEntity -> reservesRequestDtos.add(toReservesResponseDtoByEntity(reservesEntity)));
-*/
+
         reservesEntities.forEach(reservesEntity -> reservesRequestDtos.add(toReservesRequestDtoByEntity(reservesEntity)));
         return reservesRequestDtos;
     }
@@ -42,7 +40,6 @@ public class ReservesRepositoryImpl implements ReservesRepository {
 
         return reservesRequestDto;
 
-        //return reservesCrudRepository.findById(id).map(mapperReserves::toReservesDto);
     }
 
     @Override
@@ -61,20 +58,19 @@ public class ReservesRepositoryImpl implements ReservesRepository {
     public ReservesCodeResponseDto save(ReservesRequestDto reservesRequestDto) {
         ReservesEntity reservesEntity = mapperReserves.toReservesEntity(reservesRequestDto);
 
-        /**
-         * estamos pasando el id de reservas a booksReserves.
-         * Los libros
-         */
+        reservesEntity.getBookReservesEntities().forEach(bookReserves -> bookReserves.setReserves(reservesEntity));
+
         reservesEntity.getBookReservesEntities().forEach(bookReserves -> bookReserves.setReserves(reservesEntity));
 
         ReservesEntity reservesEntitySave = reservesCrudRepository.save(reservesEntity);
 
-        return new ReservesCodeResponseDto(reservesEntitySave.getId());
+
+       return new ReservesCodeResponseDto(reservesEntitySave.getId());
+
     }
 
     /**
-     * ESTE SE HARIA CON EL MAPPER.
-     * TOCA MIRAR COMO SE HACE
+     *
      */
     public ReservesResponseDto toReservesResponseDtoByEntity(ReservesEntity reservesEntity) {
 
@@ -105,6 +101,11 @@ public class ReservesRepositoryImpl implements ReservesRepository {
     }
 
 
+    /**
+     * Mapeando la reserva con la lista de libros reservados
+     * @param reservesEntity
+     * @return
+     */
     public ReservesRequestDto toReservesRequestDtoByEntity(ReservesEntity reservesEntity) {
 
         List<BookReservesRequestDto> bookReservesRequestDtoList = new ArrayList<>();
@@ -112,9 +113,12 @@ public class ReservesRepositoryImpl implements ReservesRepository {
         /**
          * recorrer la Lista de libros y la agregamos en una nueva
          */
-        reservesEntity.getBookReservesEntities().stream().forEach(bookReserves -> {
+        reservesEntity.getBookReservesEntities().stream()
+                .forEach(bookReserves -> {
             bookReservesRequestDtoList.add(new BookReservesRequestDto(bookReserves.getReserves().getId(),
-                    bookReserves.getBook().getBookId(), bookReserves.getQuantity(), bookReserves.getBook().getTitle(), bookReserves.getBook().getImagePath()));
+                    bookReserves.getBook().getBookId(), bookReserves.getQuantity(),
+                    bookReserves.getBook().getTitle(), bookReserves.getBook().getImagePath(),
+                    bookReserves.getBook().getAuthors().getName()));
         });
 
         ReservesRequestDto reservesRequestDto = ReservesRequestDto.builder()
@@ -125,9 +129,6 @@ public class ReservesRepositoryImpl implements ReservesRepository {
                 .dateDelivery(reservesEntity.getDateDelivery())
                 .bookReservesEntities(bookReservesRequestDtoList)
                 .build();
-
-
-        //reservesRequestDto.setBookReservesEntities(bookReservesRequestDtoList);
 
         return reservesRequestDto;
     }

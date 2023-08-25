@@ -5,6 +5,7 @@ import com.reserva_libros.domain.dto.ResponseCustomerDto;
 import com.reserva_libros.domain.repository.CustomerRepository;
 import com.reserva_libros.domain.useCase.CustomerService;
 import com.reserva_libros.infraestructure.exception.CardIdValidationException;
+import com.reserva_libros.infraestructure.exception.EmailExistException;
 import com.reserva_libros.infraestructure.exception.EmailValidationException;
 import com.reserva_libros.security.Roles;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -57,8 +58,14 @@ public class CustomerServiceImpl implements CustomerService {
             throw new EmailValidationException();
         }
 
-        if(getCustomerByCardId(customerDto.getCardId()).isPresent() || getCustomerByEmail(customerDto.getEmail()).isPresent()) {
+        // validar cedula repetida
+        if(getCustomerByCardId(customerDto.getCardId()).isPresent()) {
             throw new CardIdValidationException();
+        }
+
+        // validar email repetido
+        if(getCustomerByEmail(customerDto.getEmail()).isPresent()) {
+            throw new EmailExistException();
         }
 
         /** GENERAMOS LA CONTRASEÑA */
@@ -75,6 +82,14 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Optional<CustomerDto> update(CustomerDto customerDto) {
         if(customerRepository.getCustomerByCardId(customerDto.getCardId()).isEmpty()) {
+            return Optional.empty();
+        }
+        return Optional.of(customerRepository.save(customerDto));
+    }
+
+    @Override
+    public Optional<CustomerDto> updateByEmail(CustomerDto customerDto) {
+        if(customerRepository.getCustomerByEmail(customerDto.getEmail()).isEmpty()) {
             return Optional.empty();
         }
         return Optional.of(customerRepository.save(customerDto));

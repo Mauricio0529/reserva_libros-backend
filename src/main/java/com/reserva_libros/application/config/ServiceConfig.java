@@ -5,6 +5,7 @@ import com.reserva_libros.domain.service.*;
 import com.reserva_libros.security.JwtAuthenticationProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
@@ -44,4 +45,13 @@ public class ServiceConfig {
         return new ReservesServiceImpl(reservesRepository, bookRepository);
     }
 
+    @Bean
+    public EmailServiceImpl emailService(JavaMailSender sender, CustomerRepository customerRepository, PasswordEncoder passwordEncoder) {
+        return new EmailServiceImpl(sender, customerRepository, passwordEncoder);
+    }
+
+    @Bean
+    public GenerateCodeToEmailServiceImpl generateCodeToEmailService() {
+        return new GenerateCodeToEmailServiceImpl();
+    }
 }

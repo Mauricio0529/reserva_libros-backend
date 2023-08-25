@@ -19,11 +19,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ReservesEntity {
-    /**
-     * esto seria como el carrito de compras
-     * o
-     * seria una factura
-     */
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

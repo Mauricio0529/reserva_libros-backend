@@ -20,6 +20,8 @@ public interface CustomerService {
 
     Optional<CustomerDto> update(CustomerDto customerDto);
 
+    Optional<CustomerDto> updateByEmail(CustomerDto customerDto);
+
     boolean deleteById(Integer cardId);
 
     boolean deleteByUserName(String username);

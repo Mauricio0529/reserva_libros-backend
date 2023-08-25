@@ -47,21 +47,12 @@ public class ReservesServiceImpl implements ReservesUseCase {
     public ReservesCodeResponseDto save(ReservesRequestDto reservesRequestDto) {
         ReservesCodeResponseDto numberReserves = reservesRepository.save(reservesRequestDto);
 
-       // Integer numbers = reservesRequestDto.getId();
-       // ReservesCodeResponseDto numberReserves = new ReservesCodeResponseDto(numbers);
-
-        System.out.println("Codigo de reserva " +numberReserves.getId());
-
-        //BookRequestDto sbookRequestDto = new BookRequestDto();
-
         /**
          * Actualizar el estado del libro a reservado ( con el numero 0 )
          */
         reservesRequestDto.getBookReservesEntities().forEach(bookReserve -> {
 
             BookRequestDto bookRequest = bookRepository.getById(bookReserve.getBookId()).get();
-
-            System.out.println("Sin acutializar el estado del libro: " + bookRequest.getActive());
 
             // estado reservado
             if(bookRequest.getActive() != 0 ) {
@@ -76,6 +67,7 @@ public class ReservesServiceImpl implements ReservesUseCase {
                     " \nId Libro:" + bookRequest.getBookId() +
                     "\nID Categoria " + bookRequest.getCategoryId() );
 
+            // se guarda el libro con el nuevo estado (Estado reservado)
             bookRepository.save(bookRequest);
         });
 
