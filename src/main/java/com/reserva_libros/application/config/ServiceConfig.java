@@ -2,6 +2,7 @@ package com.reserva_libros.application.config;
 
 import com.reserva_libros.domain.repository.*;
 import com.reserva_libros.domain.service.*;
+import com.reserva_libros.infraestructure.repositoryImpl.ProfessionalCareersRepositoryImpl;
 import com.reserva_libros.security.JwtAuthenticationProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -53,5 +54,20 @@ public class ServiceConfig {
     @Bean
     public GenerateCodeToEmailServiceImpl generateCodeToEmailService() {
         return new GenerateCodeToEmailServiceImpl();
+    }
+
+    @Bean
+    public ProfessionalCareersServiceImpl professionalCareersService(ProfessionalCareersRepository professionalCareersRepository) {
+        return new ProfessionalCareersServiceImpl(professionalCareersRepository);
+    }
+
+    @Bean
+    public ProfessionalCycleServiceImpl professionalCycleService(ProfessionalCycleRepository professionalCycleRepository) {
+        return new ProfessionalCycleServiceImpl(professionalCycleRepository);
+    }
+
+    @Bean
+    public SemesterServiceImpl semesterService(SemesterRepository semesterRepository) {
+        return new SemesterServiceImpl(semesterRepository);
     }
 }

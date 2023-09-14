@@ -1,7 +1,7 @@
 package com.reserva_libros.domain.repository;
 
-import com.reserva_libros.domain.dto.ReservesCodeResponseDto;
 import com.reserva_libros.domain.dto.ReservesRequestDto;
+import com.reserva_libros.domain.dto.ReservesResponseDetailsDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -29,14 +29,14 @@ public interface ReservesRepository {
      * @param cardId Cedula de usuario
      * @return Optional de reserva encontrada de un usuario
      */
-    List<ReservesRequestDto> getByCardIdCustomer(Integer cardId);
+    List<ReservesResponseDetailsDto> getByCardIdCustomer(Integer cardId);
 
     /**
      * Guarda una reserva
      * @param reservesRequestDto Reserva a guardar
      * @return Dto de reserva
      */
-    ReservesCodeResponseDto save(ReservesRequestDto reservesRequestDto);
+    ReservesResponseDetailsDto save(ReservesRequestDto reservesRequestDto);
 
     /**
      * Elimina una reserva dada su id

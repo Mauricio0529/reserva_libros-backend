@@ -57,8 +57,10 @@ public class WebSecurityConfig {
                                 //.requestMatchers(HttpMethod.DELETE, "/customers/**").hasAuthority("ELIMINAR_PRIVILEGE")
 
                                 .requestMatchers(HttpMethod.GET, "/libro/**").hasRole(Roles.CUSTOMER)
-
                                 .requestMatchers(HttpMethod.POST, "/libro/**").hasRole(Roles.ADMIN)
+
+                                //.requestMatchers(HttpMethod.GET, "/professional-careers/**").hasRole(Roles.CUSTOMER)
+                                //.requestMatchers(HttpMethod.POST, "/professional-careers/**").hasRole(Roles.ADMIN)
 
                                 //.requestMatchers("/cars").hasAuthority("COMPRAR_PRIVILEGE")
                                 //.requestMatchers("/customers").hasRole(Roles.ADMIN)

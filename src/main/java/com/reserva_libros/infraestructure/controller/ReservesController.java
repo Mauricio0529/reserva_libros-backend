@@ -1,8 +1,7 @@
 package com.reserva_libros.infraestructure.controller;
 
-import com.reserva_libros.domain.dto.ReservesCodeResponseDto;
 import com.reserva_libros.domain.dto.ReservesRequestDto;
-import com.reserva_libros.domain.dto.ReservesResponseDto;
+import com.reserva_libros.domain.dto.ReservesResponseDetailsDto;
 import com.reserva_libros.domain.useCase.ReservesUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -28,19 +27,21 @@ public class ReservesController {
         return ResponseEntity.of(reservesUseCase.getById(id));
     }
 
+    // ReservesRequestDto
     @GetMapping("/customer/{cardId}")
-    public ResponseEntity<List<ReservesRequestDto>> getReservesByCardIdCustomer(@PathVariable Integer cardId) {
+    public ResponseEntity<List<ReservesResponseDetailsDto>> getReservesByCardIdCustomer(@PathVariable Integer cardId) {
         return ResponseEntity.ok(reservesUseCase.getByCustomerCardId(cardId));
     }
 
+    // ReservesCodeResponseDto
     @PostMapping()
-    public ResponseEntity<ReservesCodeResponseDto> save(@RequestBody ReservesRequestDto reservesRequestDto) {
+    public ResponseEntity<ReservesResponseDetailsDto> save(@RequestBody ReservesRequestDto reservesRequestDto) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(reservesUseCase.save(reservesRequestDto));
     }
 
     @PatchMapping()
-    public ResponseEntity<ReservesCodeResponseDto> update(@RequestBody ReservesRequestDto reservesRequestDto) {
+    public ResponseEntity<ReservesResponseDetailsDto> update(@RequestBody ReservesRequestDto reservesRequestDto) {
         return ResponseEntity.of(reservesUseCase.update(reservesRequestDto));
     }
 

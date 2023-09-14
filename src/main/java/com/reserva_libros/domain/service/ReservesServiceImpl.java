@@ -3,6 +3,7 @@ package com.reserva_libros.domain.service;
 import com.reserva_libros.domain.dto.BookRequestDto;
 import com.reserva_libros.domain.dto.ReservesCodeResponseDto;
 import com.reserva_libros.domain.dto.ReservesRequestDto;
+import com.reserva_libros.domain.dto.ReservesResponseDetailsDto;
 import com.reserva_libros.domain.repository.BookRepository;
 import com.reserva_libros.domain.repository.ReservesRepository;
 import com.reserva_libros.domain.useCase.ReservesUseCase;
@@ -34,18 +35,22 @@ public class ReservesServiceImpl implements ReservesUseCase {
         return Optional.empty();
     }
 
+    // ReservesRequestDto
     @Override
-    public List<ReservesRequestDto> getByCustomerCardId(Integer cardId) {
-        List<ReservesRequestDto> reservesDto = reservesRepository.getByCardIdCustomer(cardId);
+    public List<ReservesResponseDetailsDto> getByCustomerCardId(Integer cardId) {
+        //List<ReservesRequestDto> reservesDto = reservesRepository.getByCardIdCustomer(cardId);
+        List<ReservesResponseDetailsDto> reservesDto = reservesRepository.getByCardIdCustomer(cardId);
         if(!reservesDto.isEmpty()) {
             return reservesDto;
         }
         return null;
     }
 
+    // ReservesCodeResponseDto
     @Override
-    public ReservesCodeResponseDto save(ReservesRequestDto reservesRequestDto) {
-        ReservesCodeResponseDto numberReserves = reservesRepository.save(reservesRequestDto);
+    public ReservesResponseDetailsDto save(ReservesRequestDto reservesRequestDto) {
+        ReservesResponseDetailsDto reservesResponseDetailsDto = reservesRepository.save(reservesRequestDto);
+        //ReservesCodeResponseDto numberReserves = reservesRepository.save(reservesRequestDto);
 
         /**
          * Actualizar el estado del libro a reservado ( con el numero 0 )
@@ -71,11 +76,13 @@ public class ReservesServiceImpl implements ReservesUseCase {
             bookRepository.save(bookRequest);
         });
 
-        return numberReserves;
+        //return numberReserves;
+        return reservesResponseDetailsDto;
     }
 
+    // ReservesCodeResponseDto
     @Override
-    public Optional<ReservesCodeResponseDto> update(ReservesRequestDto reservesRequestDto) {
+    public Optional<ReservesResponseDetailsDto> update(ReservesRequestDto reservesRequestDto) {
         if(reservesRepository.getById(reservesRequestDto.getId()).isEmpty()) {
             return Optional.empty();
         }

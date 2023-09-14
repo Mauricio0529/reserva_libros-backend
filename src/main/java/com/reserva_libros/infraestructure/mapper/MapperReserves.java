@@ -1,6 +1,7 @@
 package com.reserva_libros.infraestructure.mapper;
 
 import com.reserva_libros.domain.dto.ReservesRequestDto;
+import com.reserva_libros.domain.dto.ReservesResponseDetailsDto;
 import com.reserva_libros.infraestructure.entity.ReservesEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -12,10 +13,14 @@ public interface MapperReserves {
 
     ReservesRequestDto toReservesDto(ReservesEntity reservesEntity);
 
+    ReservesResponseDetailsDto toReservesDetailsDto(ReservesEntity reservesEntity);
+
     //@Mapping(target = "bookReservesEntities", ignore = true) no se ignora ya que quiero mapear la lista
     @Mapping(target = "customer", ignore = true)
     ReservesEntity toReservesEntity(ReservesRequestDto reservesRequestDto);
 
     List<ReservesRequestDto> toReservesDtoList(List<ReservesEntity> reservesEntities);
+
+    List<ReservesResponseDetailsDto> toReservesDetailsDtoList(List<ReservesEntity> reservesEntities);
 
 }

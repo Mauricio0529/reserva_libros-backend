@@ -1,30 +1,26 @@
 package com.reserva_libros.domain.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * Dto del guardado de una reserva. (factura o carrito de compras)
- * FACTURA GENERAL, Historial
+ * Dto para detalle de la reserva
  */
-@Getter
-@Setter
+@Getter @Setter
 @Builder
 @AllArgsConstructor
-public class ReservesRequestDto {
+@NoArgsConstructor
+public class ReservesResponseDetailsDto {
 
     private Integer id;
     private Integer customerCardId;
 
     private Integer totalReserves;
 
-    private Integer professionalCareers;
-    private Integer professionalCycle;
+    private String professionalCareers;
+    private String professionalCycle;
     private Integer semester;
 
     /** fecha de entrega **/

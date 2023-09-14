@@ -15,7 +15,8 @@ import java.util.List;
 
 @Entity
 @Table(name = "reservas")
-@Getter @Setter
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class ReservesEntity {
@@ -31,6 +32,15 @@ public class ReservesEntity {
     @Column(name = "total_reservas")
     private Integer totalReserves;
 
+    @Column(name = "professional_careers") //
+    private Integer professionalCareers; //
+
+    @Column(name = "professional_cycle") //
+    private Integer professionalCycle; //
+
+    @Column(name = "semester") //
+    private Integer semester; //
+
     @Column(name = "fecha_entrega")
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime dateDelivery;
@@ -45,5 +55,17 @@ public class ReservesEntity {
     @ManyToOne()
     @JoinColumn(name = "usuarioscedula", insertable = false, updatable = false)
     private CustomerEntity customer;
+
+    @ManyToOne
+    @JoinColumn(name = "professional_careers", insertable = false, updatable = false) //
+    private ProfessionalCareersEntity professionalCareersEntity; //
+
+    @ManyToOne
+    @JoinColumn(name = "professional_cycle", insertable = false, updatable = false) //
+    private ProfessionalCycleEntity professionalCycleEntity; //
+
+    @ManyToOne
+    @JoinColumn(name = "semester", insertable = false, updatable = false) //
+    private SemesterEntity semesterEntity; //
 
 }
