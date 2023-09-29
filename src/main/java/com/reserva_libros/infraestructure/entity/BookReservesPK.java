@@ -8,7 +8,8 @@ import lombok.Setter;
 import java.io.Serial;
 import java.io.Serializable;
 
-@Getter @Setter
+@Getter
+@Setter
 @Embeddable
 public class BookReservesPK implements Serializable {
 

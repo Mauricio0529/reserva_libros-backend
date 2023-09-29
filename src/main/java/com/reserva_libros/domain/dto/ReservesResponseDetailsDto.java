@@ -8,7 +8,8 @@ import java.util.List;
 /**
  * Dto para detalle de la reserva
  */
-@Getter @Setter
+@Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,6 +23,8 @@ public class ReservesResponseDetailsDto {
     private String professionalCareers;
     private String professionalCycle;
     private Integer semester;
+
+    private String status;
 
     /** fecha de entrega **/
     private LocalDateTime dateDelivery;

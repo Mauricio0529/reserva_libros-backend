@@ -31,12 +31,20 @@ public interface ReservesRepository {
      */
     List<ReservesResponseDetailsDto> getByCardIdCustomer(Integer cardId);
 
+
+    /**
+     * Obtiene reserva dado el estado de la reserva (En proceso, Aceptada, Finalizado)
+     * @param statusReserve Estado de la reserva
+     * @return lista Dto de reserva
+     */
+    List<ReservesResponseDetailsDto> getByStatus(String statusReserve);
+
     /**
      * Guarda una reserva
      * @param reservesRequestDto Reserva a guardar
      * @return Dto de reserva
      */
-    ReservesResponseDetailsDto save(ReservesRequestDto reservesRequestDto);
+    ReservesResponseDetailsDto save(ReservesRequestDto reservesRequestDto, String newStatus);
 
     /**
      * Elimina una reserva dada su id

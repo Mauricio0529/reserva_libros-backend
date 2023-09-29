@@ -1,7 +1,7 @@
 package com.reserva_libros.domain.service;
 
+import com.reserva_libros.domain.constants.StatusReserveConstants;
 import com.reserva_libros.domain.dto.BookRequestDto;
-import com.reserva_libros.domain.dto.ReservesCodeResponseDto;
 import com.reserva_libros.domain.dto.ReservesRequestDto;
 import com.reserva_libros.domain.dto.ReservesResponseDetailsDto;
 import com.reserva_libros.domain.repository.BookRepository;
@@ -46,10 +46,20 @@ public class ReservesServiceImpl implements ReservesUseCase {
         return null;
     }
 
+    @Override
+    public List<ReservesResponseDetailsDto> getByStatusReserve(String statusReserve) {
+        List<ReservesResponseDetailsDto> reservesDto = reservesRepository.getByStatus(statusReserve);
+        if(!reservesDto.isEmpty()) {
+            return reservesDto;
+        }
+        return null;
+    }
+
     // ReservesCodeResponseDto
     @Override
     public ReservesResponseDetailsDto save(ReservesRequestDto reservesRequestDto) {
-        ReservesResponseDetailsDto reservesResponseDetailsDto = reservesRepository.save(reservesRequestDto);
+        String newState = StatusReserveConstants.IN_PROGRESS;
+        ReservesResponseDetailsDto reservesResponseDetailsDto = reservesRepository.save(reservesRequestDto, newState); // nuevo
         //ReservesCodeResponseDto numberReserves = reservesRepository.save(reservesRequestDto);
 
         /**
@@ -80,13 +90,51 @@ public class ReservesServiceImpl implements ReservesUseCase {
         return reservesResponseDetailsDto;
     }
 
+    /**
+     * ACTUALIZAR UNA RESERVA
+     * @param reservesRequestDto Objecto reserva a modificar
+     * @return
+     */
     // ReservesCodeResponseDto
     @Override
     public Optional<ReservesResponseDetailsDto> update(ReservesRequestDto reservesRequestDto) {
-        if(reservesRepository.getById(reservesRequestDto.getId()).isEmpty()) {
+        if(getById(reservesRequestDto.getId()).isEmpty()) {
             return Optional.empty();
         }
-        return Optional.of(reservesRepository.save(reservesRequestDto));
+        String stateActually = reservesRequestDto.getStatus();
+        ReservesResponseDetailsDto responseDetailsDto = reservesRepository.save(reservesRequestDto, stateActually);
+        return Optional.of(responseDetailsDto);
+    }
+
+    /**
+     * ACTUALIZAR ESTADO DE LA RESERVA
+     * @param id Id de la reserva(Numero de factura)
+     * @return
+     */
+    @Override
+    public Optional<ReservesRequestDto> updateStatus(Integer id) {
+        Optional<ReservesRequestDto> optionalReservesRequestDto = getById(id);
+        if(optionalReservesRequestDto.isEmpty()) {
+            return Optional.empty();
+        }
+        if(optionalReservesRequestDto.get().getStatus().equals(StatusReserveConstants.FINALIZED)) {
+            throw new RuntimeException("Estado Ya Finalizado");
+        }
+        ReservesRequestDto reservesRequestDto = optionalReservesRequestDto.get();
+        String newStatus = determineNewStatus(reservesRequestDto.getStatus());
+        reservesRepository.save(reservesRequestDto, newStatus);
+
+        return Optional.of(reservesRequestDto);
+    }
+
+    private String determineNewStatus(String existingStatus) {
+        if (existingStatus.equals(StatusReserveConstants.IN_PROGRESS)) {
+            return StatusReserveConstants.ACCEPTED;
+        } else if (existingStatus.equals(StatusReserveConstants.ACCEPTED)) {
+            return StatusReserveConstants.FINALIZED;
+        } else {
+            return StatusReserveConstants.IN_PROGRESS;
+        }
     }
 
     @Override

@@ -49,7 +49,7 @@ class ReservaLibrosApplicationTests {
 				.bookReservesEntities(bookReservesEntities)
 				.build();
 
-		reservesRepository.save(reservesRequestDto);
+		reservesRepository.save(reservesRequestDto, "");
 	}
 
 

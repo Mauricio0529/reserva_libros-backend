@@ -1,12 +1,16 @@
 package com.reserva_libros.infraestructure.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter @Setter
 @Entity
 @Table(name = "reservas_libros")
+@Getter @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class BookReservesEntity {
 
     /**

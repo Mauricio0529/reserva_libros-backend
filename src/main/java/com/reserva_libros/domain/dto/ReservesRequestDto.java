@@ -12,6 +12,7 @@ import java.util.List;
  * Dto del guardado de una reserva. (factura o carrito de compras)
  * FACTURA GENERAL, Historial
  */
+
 @Getter
 @Setter
 @Builder
@@ -26,6 +27,8 @@ public class ReservesRequestDto {
     private Integer professionalCareers;
     private Integer professionalCycle;
     private Integer semester;
+
+    private String status;
 
     /** fecha de entrega **/
     private LocalDateTime dateDelivery;

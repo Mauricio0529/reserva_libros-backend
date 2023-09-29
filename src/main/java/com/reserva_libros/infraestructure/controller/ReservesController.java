@@ -33,6 +33,12 @@ public class ReservesController {
         return ResponseEntity.ok(reservesUseCase.getByCustomerCardId(cardId));
     }
 
+    // Estado de reserva
+    @GetMapping("/status-reserve/{statusReserve}")
+    public ResponseEntity<List<ReservesResponseDetailsDto>> getReservesByStatusReserve(@PathVariable String statusReserve) {
+        return ResponseEntity.ok(reservesUseCase.getByStatusReserve(statusReserve));
+    }
+
     // ReservesCodeResponseDto
     @PostMapping()
     public ResponseEntity<ReservesResponseDetailsDto> save(@RequestBody ReservesRequestDto reservesRequestDto) {
@@ -40,9 +46,14 @@ public class ReservesController {
                 .body(reservesUseCase.save(reservesRequestDto));
     }
 
-    @PatchMapping()
+    @PutMapping()
     public ResponseEntity<ReservesResponseDetailsDto> update(@RequestBody ReservesRequestDto reservesRequestDto) {
         return ResponseEntity.of(reservesUseCase.update(reservesRequestDto));
+    }
+
+    @PatchMapping("/actualizar/{id}")
+    public ResponseEntity<ReservesRequestDto> updateStatus(@PathVariable Integer id) {
+        return ResponseEntity.of(reservesUseCase.updateStatus(id));
     }
 
     @DeleteMapping("/{id}")

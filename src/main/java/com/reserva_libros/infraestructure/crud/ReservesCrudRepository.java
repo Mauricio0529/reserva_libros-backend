@@ -8,4 +8,6 @@ import java.util.List;
 public interface ReservesCrudRepository extends JpaRepository<ReservesEntity, Integer> {
 
     List<ReservesEntity> findAllByCustomerCardId(Integer cardId);
+    List<ReservesEntity> findAllByStatus(String statusReserve);
+
 }

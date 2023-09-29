@@ -1,6 +1,8 @@
 package com.reserva_libros.infraestructure.repositoryImpl;
 
-import com.reserva_libros.domain.dto.*;
+import com.reserva_libros.domain.dto.BookReservesRequestDto;
+import com.reserva_libros.domain.dto.ReservesRequestDto;
+import com.reserva_libros.domain.dto.ReservesResponseDetailsDto;
 import com.reserva_libros.domain.repository.ReservesRepository;
 import com.reserva_libros.infraestructure.crud.ProfessionalCareersCrudRepository;
 import com.reserva_libros.infraestructure.crud.ProfessionalCycleCrudRepository;
@@ -8,6 +10,8 @@ import com.reserva_libros.infraestructure.crud.ReservesCrudRepository;
 import com.reserva_libros.infraestructure.crud.SemesterCrudRepository;
 import com.reserva_libros.infraestructure.entity.ReservesEntity;
 import com.reserva_libros.infraestructure.mapper.MapperReserves;
+import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -22,6 +26,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ReservesRepositoryImpl implements ReservesRepository {
 
+    private final EntityManager entityManager;
     private final ReservesCrudRepository reservesCrudRepository;
 
     private final ProfessionalCareersCrudRepository professionalCareersCrudRepository;
@@ -58,30 +63,27 @@ public class ReservesRepositoryImpl implements ReservesRepository {
         return reservesRequestDto;
     }
 
-    // ReservesCodeResponseDto
     @Override
-    public ReservesResponseDetailsDto save(ReservesRequestDto reservesRequestDto) {
-        ReservesEntity reservesEntity = mapperReserves.toReservesEntity(reservesRequestDto);
+    public List<ReservesResponseDetailsDto> getByStatus(String statusReserve) {
+        List<ReservesEntity> reservesEntities = reservesCrudRepository.findAllByStatus(statusReserve);
 
+        List<ReservesResponseDetailsDto> responseDetailsDto = new ArrayList<>();
+        reservesEntities.stream().forEach(reservesEntity -> responseDetailsDto.add(toReservesResponseDetailsDtoByEntity(reservesEntity)));
+        return responseDetailsDto;
+    }
+
+    // ReservesCodeResponseDto
+    @Transactional
+    @Override
+    public ReservesResponseDetailsDto save(ReservesRequestDto reservesRequestDto, String newStatus) {
+
+        ReservesEntity reservesEntity = reservesCrudRepository.findById(reservesRequestDto.getId())
+                .orElseGet(() -> mapperReserves.toReservesEntity(reservesRequestDto));
+
+        reservesEntity.setStatus(newStatus);
         reservesEntity.getBookReservesEntities().forEach(bookReserves -> bookReserves.setReserves(reservesEntity));
-        //reservesEntity.getBookReservesEntities().forEach(bookReserves -> bookReserves.setReserves(reservesEntity));
 
-        ReservesResponseDetailsDto reservesResponseDetailsDto = mapperReserves.toReservesDetailsDto(reservesEntity);
-
-        /** Obtener los valores de carreras profesionales, ciclos y semestres */
-        String professionalCareersName = this.professionalCareers(reservesEntity.getProfessionalCareers());
-        String professionalCycleName = this.professionalCycle(reservesEntity.getProfessionalCycle());
-        int numberSemester = this.numberSemester(reservesEntity.getSemester());
-
-        reservesResponseDetailsDto.setProfessionalCareers(professionalCareersName);
-        reservesResponseDetailsDto.setProfessionalCycle(professionalCycleName);
-        reservesResponseDetailsDto.setSemester(numberSemester);
-
-        ReservesEntity reservesEntitySave = reservesCrudRepository.save(reservesEntity);
-
-       //return new ReservesCodeResponseDto(reservesEntitySave.getId());
-        return reservesResponseDetailsDto;
-
+        return toReservesResponseDetailsDtoByEntity(reservesCrudRepository.save(reservesEntity));
     }
 
     private String professionalCareers(Integer professionalCareersId) {
@@ -108,7 +110,7 @@ public class ReservesRepositoryImpl implements ReservesRepository {
         /**
          * recorrer la Lista de libros y la agregamos en una nueva
          */
-        reservesEntity.getBookReservesEntities().stream()
+       reservesEntity.getBookReservesEntities().stream()
                 .forEach(bookReserves -> {
             bookReservesRequestDtoList.add(new BookReservesRequestDto(bookReserves.getReserves().getId(),
                     bookReserves.getBook().getBookId(), bookReserves.getQuantity(),
@@ -123,6 +125,7 @@ public class ReservesRepositoryImpl implements ReservesRepository {
                 .professionalCareers(reservesEntity.getProfessionalCareers())
                 .professionalCycle(reservesEntity.getProfessionalCycle())
                 .semester(reservesEntity.getSemester())
+                .status(reservesEntity.getStatus())
                 .dateReserves(reservesEntity.getDateReserves())
                 .dateDelivery(reservesEntity.getDateDelivery())
                 .bookReservesEntities(bookReservesRequestDtoList)
@@ -145,10 +148,12 @@ public class ReservesRepositoryImpl implements ReservesRepository {
          */
         reservesEntity.getBookReservesEntities().stream()
                 .forEach(bookReserves -> {
+                    System.out.println("Mapper: "+ bookReserves.getReserves().getId() + " book: " +bookReserves.getId().getBookId());
+
                     bookReservesRequestDtoList.add(new BookReservesRequestDto(bookReserves.getReserves().getId(),
-                            bookReserves.getBook().getBookId(), bookReserves.getQuantity(),
-                            bookReserves.getBook().getTitle(), bookReserves.getBook().getImagePath(),
-                            bookReserves.getBook().getAuthors().getName()));
+                            bookReserves.getId().getBookId(), bookReserves.getQuantity(),
+                            bookReserves.getTitle(), bookReserves.getImagePath(),
+                            bookReserves.getAuthor()));
                 });
 
         String professionalCareersName = this.professionalCareers(reservesEntity.getProfessionalCareers());
@@ -162,6 +167,7 @@ public class ReservesRepositoryImpl implements ReservesRepository {
                 .professionalCareers(professionalCareersName)
                 .professionalCycle(professionalCycleName)
                 .semester(numberSemester)
+                .status(reservesEntity.getStatus()) //
                 .dateReserves(reservesEntity.getDateReserves())
                 .dateDelivery(reservesEntity.getDateDelivery())
                 .bookReservesEntities(bookReservesRequestDtoList)

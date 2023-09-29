@@ -14,9 +14,13 @@ public interface ReservesUseCase {
 
     List<ReservesResponseDetailsDto> getByCustomerCardId(Integer cardId);
 
+    List<ReservesResponseDetailsDto> getByStatusReserve(String statusReserve);
+
     ReservesResponseDetailsDto save(ReservesRequestDto reservesRequestDto);
 
     Optional<ReservesResponseDetailsDto> update(ReservesRequestDto reservesRequestDto);
+
+    Optional<ReservesRequestDto> updateStatus(Integer id);
 
     boolean delete(Integer idReserves);
 }

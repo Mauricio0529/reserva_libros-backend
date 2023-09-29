@@ -32,14 +32,16 @@ public class ReservesEntity {
     @Column(name = "total_reservas")
     private Integer totalReserves;
 
-    @Column(name = "professional_careers") //
-    private Integer professionalCareers; //
+    @Column(name = "professional_careers")
+    private Integer professionalCareers;
 
-    @Column(name = "professional_cycle") //
-    private Integer professionalCycle; //
+    @Column(name = "professional_cycle")
+    private Integer professionalCycle;
 
-    @Column(name = "semester") //
-    private Integer semester; //
+    @Column(name = "semester")
+    private Integer semester;
+
+    private String status;
 
     @Column(name = "fecha_entrega")
     @Temporal(TemporalType.TIMESTAMP)
